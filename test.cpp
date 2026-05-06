@@ -16,20 +16,20 @@ int main()
     Color red(255, 0, 0);
     Color black(0, 0, 0);
 
-     for(unsigned y = 0; y < HEIGHT; y++){
-        for(unsigned x = 0; x < WIDTH; x++){
+    for(unsigned y = 0; y < HEIGHT; y++){
+      for(unsigned x = 0; x < WIDTH; x++){
 
-          if(x > 400 && y > 200)
-          {
-            canvas.PutPixel({x, y}, red);
-          }
-          else
-          {
-            canvas.PutPixel({x, y}, black);
-          }
+        if(x > 400 && y > 200)
+        {
+          canvas.PutPixel({x, y}, red);
+        }
+        else
+        {
+          canvas.PutPixel({x, y}, black);
+        }
 
-        };
       };
+    };
 
 
     //Cria textura

@@ -1,7 +1,7 @@
-#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Color.h"
 #include "Vec2.h"
+#include "algorithm"
 
 class Canvas{
   public:
@@ -16,10 +16,12 @@ class Canvas{
 
       int i = (y * WIDTH + x) * 4;
 
-      pixels[i + 0] = color.r; 
-      pixels[i + 1] = color.g; 
-      pixels[i + 2] = color.b;   
-      pixels[i + 3] = color.a; 
+      //Transform o float de Color pra uint8_t, enquanto faz o clamp
+      pixels[i + 0] = static_cast<std::uint8_t>(std::clamp(color.r * 255.0f, 0.0f, 255.0f)); 
+      pixels[i + 1] = static_cast<std::uint8_t>(std::clamp(color.g * 255.0f, 0.0f, 255.0f)); 
+      pixels[i + 2] = static_cast<std::uint8_t>(std::clamp(color.b * 255.0f, 0.0f, 255.0f));   
+      pixels[i + 3] = static_cast<std::uint8_t>(std::clamp(color.a * 255.0f, 0.0f, 255.0f));
+      
     }
 
     void PutPixel(Vec2 v, const Color &color){
