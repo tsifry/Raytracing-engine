@@ -10,23 +10,25 @@ int main()
 {
     const int WIDTH = 800;
     const int HEIGHT = 400;
+    const int canvasY = HEIGHT / 2;
+    const int canvasX = WIDTH / 2;
+
+
     sf::RenderWindow window(sf::VideoMode({WIDTH, HEIGHT}), "Title");
 
     Canvas canvas(WIDTH, HEIGHT);
-    Color red(255, 0, 0);
     Color black(0, 0, 0);
+    Color red(1, 0, 0);
 
-    for(unsigned y = 0; y < HEIGHT; y++){
-      for(unsigned x = 0; x < WIDTH; x++){
+    for(int y = -canvasY; y < canvasY; y++){
+      for(int x = -canvasX; x < canvasX; x++){
 
-        if(x > 400 && y > 200)
-        {
-          canvas.PutPixel({x, y}, red);
-        }
-        else
-        {
-          canvas.PutPixel({x, y}, black);
-        }
+        float u = (x + canvasX) / float(WIDTH);
+        float v= (y + canvasY) / float(HEIGHT);
+
+        Color gradientColor(v, 0, u);
+
+        canvas.PutPixel({x, y}, gradientColor);
 
       };
     };

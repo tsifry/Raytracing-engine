@@ -11,10 +11,17 @@ class Canvas{
     int WIDTH;
     int HEIGHT;
     std::uint8_t *pixels;
-    void PutPixel(const unsigned int x, unsigned int y, const Color &color){
-      if(x >= WIDTH || y >= HEIGHT) return;
 
-      int i = (y * WIDTH + x) * 4;
+    void PutPixel(int x, int y, const Color &color){
+
+      //Conversion from Canvas space to Screen space
+      int Sx = (WIDTH / 2) + x;
+      int Sy = (HEIGHT / 2) - y;
+
+      //Bound box
+      if (Sx < 0 || Sx >= WIDTH || Sy < 0 || Sy >= HEIGHT) return;
+
+      int i = (Sy * WIDTH + Sx) * 4;
 
       //Transform o float de Color pra uint8_t, enquanto faz o clamp
       pixels[i + 0] = static_cast<std::uint8_t>(std::clamp(color.r * 255.0f, 0.0f, 255.0f)); 
@@ -25,6 +32,6 @@ class Canvas{
     }
 
     void PutPixel(Vec2 v, const Color &color){
-      PutPixel(static_cast<unsigned>(v.x), static_cast<unsigned>(v.y), color);
+      PutPixel(v.x, v.y, color);
     }
 };

@@ -8,7 +8,7 @@ class Color {
     float r, g, b, a;
 
     //Constructor padrao
-    constexpr Color(int r, int g, int b, int a = 255) : 
+    constexpr Color(float r, float g, float b, float a = 1) : 
       r(r), g(g), b(b), a(a) {};
 
     //Overload +
