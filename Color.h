@@ -23,7 +23,7 @@ class Color {
 
     //Overload * by a float
     Color operator*(float scalar) const{
-      return Color( r * scalar, g * scalar, b * scalar, a * scalar);
+      return Color(r * scalar, g * scalar, b * scalar, a * scalar);
     }
 
     //Overload * by another color, blending

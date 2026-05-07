@@ -4,6 +4,8 @@
 #include "Color.h"
 #include "Canvas.h"
 #include "Vec2.h"
+#include "Vec3.h"
+#include "Camera.h"
 
 
 int main()
@@ -16,15 +18,16 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode({WIDTH, HEIGHT}), "Title");
 
+    //Criação do Canvas, Camera e Viewport
     Canvas canvas(WIDTH, HEIGHT);
-    Color black(0, 0, 0);
-    Color red(1, 0, 0);
+    Camera cam({0, 0, 0}, 1, 1, 1);
 
     for(int y = -canvasY; y < canvasY; y++){
       for(int x = -canvasX; x < canvasX; x++){
 
+        //Normalização de x e y pra 0 - 1
         float u = (x + canvasX) / float(WIDTH);
-        float v= (y + canvasY) / float(HEIGHT);
+        float v = (y + canvasY) / float(HEIGHT);
 
         Color gradientColor(v, 0, u);
 

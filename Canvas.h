@@ -21,6 +21,7 @@ class Canvas{
       //Bound box
       if (Sx < 0 || Sx >= WIDTH || Sy < 0 || Sy >= HEIGHT) return;
 
+      //Descobrir qual index do pixel no buffer
       int i = (Sy * WIDTH + Sx) * 4;
 
       //Transform o float de Color pra uint8_t, enquanto faz o clamp
@@ -31,7 +32,7 @@ class Canvas{
       
     }
 
-    void PutPixel(Vec2 v, const Color &color){
+    void PutPixel(Vector2 v, const Color &color){
       PutPixel(v.x, v.y, color);
     }
 };
