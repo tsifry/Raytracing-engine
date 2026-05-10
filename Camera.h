@@ -9,11 +9,9 @@ class Camera{
     float d;
 
     Camera(Vector3 pos, const float &Vw, const float &Vh, float const &d) :
-      pos(pos),
-      Vw(Vw),
-      Vh(Vh),
-      d(d) {};
-
+      pos(pos), Vw(Vw), Vh(Vh), d(d) {
+    };
+    
     Vector3 generateRayDirection(int x, int y, int Cw, int Ch){
       //Transforma Cx e Cy em Vx e Vy
       float Vx = x * (Vw / (float)Cw);

@@ -14,16 +14,26 @@ struct Vector3{
     return Vector3(x - v.x, y - v.y, z - v.z);
   }
 
-  float static dotProduct(const Vector3 v1, const Vector3 v2){
+  float static dot(const Vector3 v1, const Vector3 v2){
     return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
   }
 
-  float static magnitude(const Vector3 vector){
-    return sqrt(dotProduct(vector, vector));
+  float static length(const Vector3 vector){
+
+    // Dot product de um Vetor com ele mesmo vira basicamente pitagoras
+    // aplicando raíz temos nossa magnitude real.
+    return sqrt(dot(vector, vector));
+  }
+
+  float static lengthSquared(const Vector3 vector){
+
+    //Isso aqui é basicamente a magnitude porém sem a raíz
+    //é o mesmo que:  ||V||^2
+    return dot(vector, vector);
   }
 
   Vector3 static normalized(const Vector3 vector){
-    float mag = magnitude(vector);
+    float mag = length(vector);
     
     if (mag > 0.0f) {
         return Vector3(vector.x / mag, vector.y / mag, vector.z / mag);
