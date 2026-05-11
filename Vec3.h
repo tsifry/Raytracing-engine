@@ -15,6 +15,10 @@ struct Vector3{
     return Vector3(x - v.x, y - v.y, z - v.z);
   }
 
+  Vector3 operator*(const float e){
+    return Vector3(x * e, y * e, z * e);
+  }
+
   float static dot(const Vector3 v1, const Vector3 v2){
     return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
   }

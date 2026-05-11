@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Scene.h"
 #include "Sphere.h"
+#include "Ligth.h"
 
 
 int main()
@@ -23,34 +24,18 @@ int main()
     const Vector3 cameraPosO = {0, 0, 0};
     const float ViewportH = 1;
     const float ViewportW = 2;
-    const float ViewportDistance = 0.5; //Fov
+    const float ViewportDistance = 0.8; //Fov
 
 
     //Criação do Canvas, Camera e Viewport
     Canvas canvas(WIDTH, HEIGHT);
     Camera cam(cameraPosO, ViewportW, ViewportH, WIDTH, HEIGHT, ViewportDistance);
 
-    //Criação de Scena com objetos
-    Scene scene(3);
-    
-    Sphere s1;
-    s1.center = Vector3(0, -1, 3);
-    s1.radius = 1;
-    s1.color = Color(1, 0, 0, 1);
-    
-    Sphere s2;
-    s2.center = Vector3(2, 0, 4);
-    s2.radius = 1;
-    s2.color = Color(0, 0, 1, 1);
-    
-    Sphere s3;
-    s3.center = Vector3(-2, 0, 4);
-    s3.radius = 1;
-    s3.color = Color(0, 1, 0, 1);
 
-    scene.AddSphere(s1);
-    scene.AddSphere(s2);
-    scene.AddSphere(s3);
+    //TODO - Nao deixar isso aqui hardcoded.
+    //Criação de Scena e objetos
+    Scene scene(3);
+    scene.instantiateObjects();
 
     //Pra cada pixel do canvas
     for(int y = -canvasY; y < canvasY; y++){

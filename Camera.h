@@ -1,9 +1,10 @@
 #pragma once
+#include <math.h>
+#include <limits>
 #include "Vec3.h"
 #include "Sphere.h"
 #include "Scene.h"
-#include <math.h>
-#include <limits>
+#include "Ligth.h"
 
 class Camera{
   public:
@@ -43,7 +44,7 @@ class Camera{
       //Vetor do centro até origem, C - O
       Vector3 CO =  O - sph.center;
       
-      //Quadratica que descobrer qual componente escalar faz o ponto P acerta a superfície da esfera
+      //Quadratica que descobrer qual componente escalar faz o ponto P acertar a superfície da esfera
       //Se tiver duas raízes significa que atravessou por completo
       float a = Vector3::lengthSquared(D);
       float b = 2 * Vector3::dot(CO, D);
@@ -92,12 +93,60 @@ class Camera{
         }
       }
       
-      //Sem hit retorna branco
+      //Sem hit outra cor
       if(!hit) {
-        return Color(1, 1, 1, 1);
+        return Color(0, 0.3, 0, 1);
       }
 
-      //Com hit retorna cor da esféra
-      return closest_sphere.color;
+      Vector3 P = O + D * closest_t;
+      Vector3 N = P - closest_sphere.center;
+      N = Vector3::normalized(N);
+
+      //Com hit retorna cor da esféra * intesidade da luz naquele ponto
+      return closest_sphere.color * ComputeLighting(N, P, scene);
+    }
+
+    //Computa a intensidade da luz com base na Normal de P e o ponto P.
+    float ComputeLighting(Vector3 N, Vector3 P, const Scene &scene){
+
+      float intesinty = 0;
+      Vector3 L;
+
+      for(int i = 0; i < scene.currentLights; i++)
+      {
+        
+        //Pega a luz atual da cena.
+        Lights currentLight = scene.lights[i];
+
+        //Se for ambient, só soma valor fixo
+        if(currentLight.type == "ambient")
+        {
+          intesinty += currentLight.intensity;
+        }
+        else
+        { 
+          //Se for point, retorna vetor de direção.
+          if(currentLight.type == "point"){
+            L = currentLight.position - P;
+          }
+          else if (currentLight.type == "directional"){
+            L = currentLight.direction;
+          }
+
+          //Normaliza o vetor da luz
+          L = Vector3::normalized(L);
+
+          //Dot product entre a Luz e a Normal nos retorna um valor equivalente a Intensidade/Area
+          //normalizando entao esse valor, multiplicamos pela nossa cor no final após o return
+          float n_dot_l = Vector3::dot(N, L);
+          
+          if(n_dot_l > 0){
+            intesinty += n_dot_l / (Vector3::length(N) * Vector3::length(L));
+          } 
+  
+        }
+      };
+
+      return intesinty;
     }
 };
