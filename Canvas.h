@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include "Color.h"
 #include "Vec2.h"
@@ -13,8 +14,9 @@ class Canvas{
     std::uint8_t *pixels;
 
     void PutPixel(int x, int y, const Color &color){
+      
 
-      //Conversion from Canvas space to Screen space
+      //Conversão de Canvas space pra Screen space
       int Sx = (WIDTH / 2) + x;
       int Sy = (HEIGHT / 2) - y;
 
@@ -33,6 +35,8 @@ class Canvas{
     }
 
     void PutPixel(Vector2 v, const Color &color){
-      PutPixel(v.x, v.y, color);
+      int x = static_cast<int>(v.x);
+      int y = static_cast<int>(v.y);
+      PutPixel(x, y, color);
     }
 };
