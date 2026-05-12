@@ -49,19 +49,22 @@ class Scene{
     void instantiateObjects(){
 
       Sphere s1;
-      s1.center = Vector3(0, -1, 3);
+      s1.center = Vector3(0, 0, 5);
       s1.radius = 1;
-      s1.color = Color(1, 0, 0, 1);
+      s1.color = Color(0.6, 0.1, 0.314);
+      s1.specular = 1000;
       
       Sphere s2;
-      s2.center = Vector3(2, 0, 4);
+      s2.center = Vector3(3, 0, 4);
       s2.radius = 1;
-      s2.color = Color(0, 0, 1, 1);
+      s2.color = Color(0.502, 0.0, 0.125);
+      s2.specular = 10;
       
       Sphere s3;
-      s3.center = Vector3(-2, 0, 4);
+      s3.center = Vector3(-3, 0, 4);
       s3.radius = 1;
-      s3.color = Color(0, 1, 0, 1);
+      s3.color = Color(0.2, 0, 0.8);
+      s3.specular = -1;
 
       AddSphere(s1);
       AddSphere(s2);
@@ -70,7 +73,7 @@ class Scene{
       //Criação de luzes
       Lights l1;
       l1.type = "ambient";
-      l1.intensity = 0.2;
+      l1.intensity = 0.1;
 
       Lights l2;
       l2.type = "point";
@@ -80,7 +83,7 @@ class Scene{
       Lights l3;
       l3.type = "directional";
       l3.intensity = 0.2;
-      l3.direction = Vector3(1, 4, 4);
+      l3.direction = Vector3(1, 4, 0);
 
       AddLight(l1);
       AddLight(l2);

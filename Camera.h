@@ -95,19 +95,24 @@ class Camera{
       
       //Sem hit outra cor
       if(!hit) {
-        return Color(0, 0.3, 0, 1);
+        return Color(0.5f, 0.5f, 0.5f);
       }
 
+      //Ponto P aonde vamos calcular luz
       Vector3 P = O + D * closest_t;
+      //Normal do ponto P
       Vector3 N = P - closest_sphere.center;
       N = Vector3::normalized(N);
 
+      //Vetor que aponta do ponto P até a origem, View direction
+      D = Vector3::normalized(D);
+
       //Com hit retorna cor da esféra * intesidade da luz naquele ponto
-      return closest_sphere.color * ComputeLighting(N, P, scene);
+      return closest_sphere.color * ComputeLighting(N, P, D * -1, closest_sphere.specular, scene);
     }
 
     //Computa a intensidade da luz com base na Normal de P e o ponto P.
-    float ComputeLighting(Vector3 N, Vector3 P, const Scene &scene){
+    float ComputeLighting(Vector3 N, Vector3 P, Vector3 V, int specular, const Scene &scene){
 
       float intesinty = 0;
       Vector3 L;
@@ -139,10 +144,25 @@ class Camera{
           //Dot product entre a Luz e a Normal nos retorna um valor equivalente a Intensidade/Area
           //normalizando entao esse valor, multiplicamos pela nossa cor no final após o return
           float n_dot_l = Vector3::dot(N, L);
-          
+
           if(n_dot_l > 0){
-            intesinty += n_dot_l / (Vector3::length(N) * Vector3::length(L));
-          } 
+            intesinty += n_dot_l;
+          }
+          
+          //Se for -1 significa que é uma esféra matte
+          if(specular != -1){
+            //Specular diffusion, calculamos primeiro o Vetor R
+            //Sendo R a luz refletida
+            Vector3 R;
+            R = ((2.0 * N) * n_dot_l) - L;
+  
+            //O quanto a View Direction esta de acordo com R para ver o brilho
+            float r_dot_v = Vector3::dot(R, V);
+  
+            if(r_dot_v > 0){
+              intesinty += std::pow(r_dot_v, specular);
+            }
+          }
   
         }
       };

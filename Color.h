@@ -34,4 +34,13 @@ class Color {
       return Color(r * color.r, g * color.g, b * color.b, a * color.a);
     };
 
+    static Color clamp(Color &color){
+      color.r = std::clamp(color.r, 0.0f, 1.0f);
+      color.g = std::clamp(color.g, 0.0f, 1.0f);
+      color.b = std::clamp(color.b, 0.0f, 1.0f);
+      color.a = std::clamp(color.r, 0.0f, 1.0f);
+
+      return color;
+    };
+
 };

@@ -14,8 +14,8 @@
 int main()
 {
     //Propriedades do canvas
-    const int HEIGHT = 400;
-    const int WIDTH = 800;
+    const int WIDTH = 1920;
+    const int HEIGHT = 1080;
     const int canvasY = HEIGHT / 2;
     const int canvasX = WIDTH / 2;
     sf::RenderWindow window(sf::VideoMode({WIDTH, HEIGHT}), "Title");
@@ -23,7 +23,7 @@ int main()
     //Propriedades da viewport e camera
     const Vector3 cameraPosO = {0, 0, 0};
     const float ViewportH = 1;
-    const float ViewportW = 2;
+    const float ViewportW = 1.77777;
     const float ViewportDistance = 0.8; //Fov
 
 
@@ -46,6 +46,7 @@ int main()
         
         //Descobre a cor traçando o ray
         Color color = cam.TraceRay(cam.posO, D, 1.f, std::numeric_limits<float>::infinity(), scene);
+        color = Color::clamp(color);
 
         //Pinta pixel do canvas
         canvas.PutPixel(x, y, color);

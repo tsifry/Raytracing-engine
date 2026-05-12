@@ -6,6 +6,7 @@
 struct Sphere {
   Vector3 center;
   int radius;
+  int specular;
   Color color;
 };
 
