@@ -38,7 +38,7 @@ class Color {
       color.r = std::clamp(color.r, 0.0f, 1.0f);
       color.g = std::clamp(color.g, 0.0f, 1.0f);
       color.b = std::clamp(color.b, 0.0f, 1.0f);
-      color.a = std::clamp(color.r, 0.0f, 1.0f);
+      color.a = std::clamp(color.a, 0.0f, 1.0f);
 
       return color;
     };

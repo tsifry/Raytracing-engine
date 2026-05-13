@@ -5,6 +5,7 @@
 #include "Canvas.h"
 #include "Vec2.h"
 #include "Vec3.h"
+#include "Engine.h"
 #include "Camera.h"
 #include "Scene.h"
 #include "Sphere.h"
@@ -31,11 +32,12 @@ int main()
     Canvas canvas(WIDTH, HEIGHT);
     Camera cam(cameraPosO, ViewportW, ViewportH, WIDTH, HEIGHT, ViewportDistance);
 
-
-    //TODO - Nao deixar isso aqui hardcoded.
+    
     //Criação de Scena e objetos
-    Scene scene(3);
+    Scene scene(4);
     scene.instantiateObjects();
+
+    Engine engine(scene, cam);
 
     //Pra cada pixel do canvas
     for(int y = -canvasY; y < canvasY; y++){
@@ -45,8 +47,8 @@ int main()
         Vector3 D = cam.CanvasToViewportDir(x, y);
         
         //Descobre a cor traçando o ray
-        Color color = cam.TraceRay(cam.posO, D, 1.f, std::numeric_limits<float>::infinity(), scene);
-        color = Color::clamp(color);
+        Color color = engine.TraceRay(cam.posO, D, 1.f, std::numeric_limits<float>::infinity(), 5);
+        //color = Color::clamp(color);
 
         //Pinta pixel do canvas
         canvas.PutPixel(x, y, color);
